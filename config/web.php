@@ -13,9 +13,19 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'defaultRoute' => 'site/default/index',
+    'modules' => [
+        'admin' => [
+            'class' => 'app\modules\admin\Admin',
+        ],
+        'site' => [
+            'class' => 'app\modules\site\Site',
+        ],
+        'v1' => [
+            'class' => 'app\modules\v1\Module',
+        ],
+    ],
     'components' => [
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'JaS3_qmYcs1x9itPKWfAy5Iup0iqOUL4',
         ],
         'cache' => [
@@ -26,7 +36,7 @@ $config = [
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'site/default/error',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -50,20 +60,16 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '/api/<module>/<controller>/<id:\d+>' => '<module>/<controller>/delete',
+                '/api/<module>/<controller>/<action>' => '<module>/<controller>/<action>',
+
+                '/api/<module>/<controller>/<action>/<id:\d+>' => '<module>/<controller>/<action>',
 
             ],
         ],
 
     ],
     'params' => $params,
-    'modules' => [
-        'admin' => [
-            'class' => 'app\modules\admin\Admin',
-        ],
-        'site' => [
-            'class' => 'app\modules\site\Site',
-        ],
-    ],
 ];
 
 if (YII_ENV_DEV) {
