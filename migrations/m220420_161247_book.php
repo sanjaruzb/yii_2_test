@@ -12,6 +12,19 @@ class m220420_161247_book extends Migration
      */
     public function safeUp()
     {
+        $this->createTable('book', [
+            'id' => $this->primaryKey(),
+            'title' => $this->text(),
+            'author_id' => $this->integer(),
+        ]);
+
+        $this->addForeignKey(
+            'fk-book-author_id',
+            'book',
+            'author_id',
+            'author',
+            'id'
+        );
 
     }
 

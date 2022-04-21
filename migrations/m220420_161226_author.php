@@ -12,6 +12,10 @@ class m220420_161226_author extends Migration
      */
     public function safeUp()
     {
+        $this->createTable('author', [
+            'id' => $this->primaryKey(),
+            'fio' => $this->text(),
+        ]);
 
     }
 
