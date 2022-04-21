@@ -65,4 +65,21 @@ class BooksController extends \yii\rest\ActiveController
         ];
     }
 
+    public function actionUpdate(){
+        $data = \Yii::$app->request->post();
+
+        if(!isset($data['id']) || !is_numeric($data['id'])){
+            throw new \yii\web\HttpException('400','Bad request');
+        }
+
+        $model = Book::findOne(['id' => $data['id']]);
+
+        if($model instanceof Book){
+            $model->load(['Book'=>$data]);
+        }
+
+        throw new NotFoundHttpException('Model topilmadi');
+
+    }
+
 }
